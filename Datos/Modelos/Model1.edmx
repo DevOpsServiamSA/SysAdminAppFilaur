@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EXACTUSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="XTUS_AUDITORIA_AFFIDAVIT">
+          <Key>
+            <PropertyRef Name="IDAFFIDAVIT" />
+          </Key>
+          <Property Name="IDAFFIDAVIT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CLIENTE" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PEDIDO" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="FECHA" Type="datetime" Nullable="false" />
+          <Property Name="USUARIO" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="REPORTE" Type="varchar(max)" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'EXACTUS.FILASUR.XTUS_DatoGeneral' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="XTUS_DatoGeneral">
+          <Key>
+            <PropertyRef Name="DatoGeneralId" />
+          </Key>
+          <Property Name="DatoGeneralId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Dominio" Type="varchar" MaxLength="6" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="250" />
+          <Property Name="PuedeCrecer" Type="bit" />
+          <Property Name="Habilitado" Type="bit" />
+          <Property Name="UsuarioRegistra" Type="varchar" MaxLength="20" />
+          <Property Name="FechaRegistra" Type="datetime" />
+          <Property Name="UsuarioModifica" Type="varchar" MaxLength="20" />
+          <Property Name="FechaModifica" Type="datetime" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'EXACTUS.FILASUR.XTUS_DatoGeneralDetalle' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="XTUS_DatoGeneralDetalle">
+          <Key>
+            <PropertyRef Name="DatoGeneralDetalleId" />
+          </Key>
+          <Property Name="DatoGeneralDetalleId" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="DatoGeneralId" Type="int" />
+          <Property Name="ValorTabla" Type="int" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="250" />
+          <Property Name="ValorTexto1" Type="varchar" MaxLength="50" />
+          <Property Name="ValorTexto2" Type="varchar" MaxLength="500" />
+          <Property Name="ValorEntero" Type="int" />
+          <Property Name="ValorDecimal" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="ValorFecha" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Editable" Type="bit" />
+          <Property Name="Habilitado" Type="bit" />
+          <Property Name="UsuarioRegistra" Type="varchar" MaxLength="20" />
+          <Property Name="FechaRegistra" Type="datetime" />
+          <Property Name="UsuarioModifica" Type="varchar" MaxLength="20" />
+          <Property Name="FechaModifica" Type="datetime" />
+        </EntityType>
+        <EntityType Name="XTUS_Rol">
+          <Key>
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Name="IdRol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreRol" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" Nullable="false" />
+          <Property Name="EstadoRol" Type="bit" Nullable="false" />
+          <Property Name="EstadoEliminacion" Type="bit" Nullable="false" />
+          <Property Name="CodigoRol" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="XTUS_USUARIO">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreUsuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ApPaternoUsuario" Type="varchar" MaxLength="50" />
+          <Property Name="ApMaternoUsuario" Type="varchar" MaxLength="50" />
+          <Property Name="Usser" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmailUsuario" Type="varchar" MaxLength="50" />
+          <Property Name="IdRol" Type="int" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="varchar" MaxLength="50" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="EstadoUsuario" Type="bit" Nullable="false" />
+          <Property Name="EstadoEliminacion" Type="bit" Nullable="false" />
+          <Property Name="TelefonoUsuario" Type="varchar" MaxLength="9" />
+          <Property Name="IdJefe" Type="int" />
+        </EntityType>
+        <EntityContainer Name="EXACTUSModelStoreContainer">
+          <EntitySet Name="XTUS_AUDITORIA_AFFIDAVIT" EntityType="Self.XTUS_AUDITORIA_AFFIDAVIT" Schema="FILASUR" store:Type="Tables" />
+          <EntitySet Name="XTUS_Rol" EntityType="Self.XTUS_Rol" Schema="FILASUR" store:Type="Tables" />
+          <EntitySet Name="XTUS_USUARIO" EntityType="Self.XTUS_USUARIO" Schema="FILASUR" store:Type="Tables" />
+          <EntitySet Name="XTUS_DatoGeneral" EntityType="Self.XTUS_DatoGeneral" store:Type="Tables" store:Schema="FILASUR">
+            <DefiningQuery>SELECT 
+[XTUS_DatoGeneral].[DatoGeneralId] AS [DatoGeneralId], 
+[XTUS_DatoGeneral].[Dominio] AS [Dominio], 
+[XTUS_DatoGeneral].[Descripcion] AS [Descripcion], 
+[XTUS_DatoGeneral].[PuedeCrecer] AS [PuedeCrecer], 
+[XTUS_DatoGeneral].[Habilitado] AS [Habilitado], 
+[XTUS_DatoGeneral].[UsuarioRegistra] AS [UsuarioRegistra], 
+[XTUS_DatoGeneral].[FechaRegistra] AS [FechaRegistra], 
+[XTUS_DatoGeneral].[UsuarioModifica] AS [UsuarioModifica], 
+[XTUS_DatoGeneral].[FechaModifica] AS [FechaModifica]
+FROM [FILASUR].[XTUS_DatoGeneral] AS [XTUS_DatoGeneral]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="XTUS_DatoGeneralDetalle" EntityType="Self.XTUS_DatoGeneralDetalle" store:Type="Tables" store:Schema="FILASUR">
+            <DefiningQuery>SELECT 
+[XTUS_DatoGeneralDetalle].[DatoGeneralDetalleId] AS [DatoGeneralDetalleId], 
+[XTUS_DatoGeneralDetalle].[DatoGeneralId] AS [DatoGeneralId], 
+[XTUS_DatoGeneralDetalle].[ValorTabla] AS [ValorTabla], 
+[XTUS_DatoGeneralDetalle].[Descripcion] AS [Descripcion], 
+[XTUS_DatoGeneralDetalle].[ValorTexto1] AS [ValorTexto1], 
+[XTUS_DatoGeneralDetalle].[ValorTexto2] AS [ValorTexto2], 
+[XTUS_DatoGeneralDetalle].[ValorEntero] AS [ValorEntero], 
+[XTUS_DatoGeneralDetalle].[ValorDecimal] AS [ValorDecimal], 
+[XTUS_DatoGeneralDetalle].[ValorFecha] AS [ValorFecha], 
+[XTUS_DatoGeneralDetalle].[Editable] AS [Editable], 
+[XTUS_DatoGeneralDetalle].[Habilitado] AS [Habilitado], 
+[XTUS_DatoGeneralDetalle].[UsuarioRegistra] AS [UsuarioRegistra], 
+[XTUS_DatoGeneralDetalle].[FechaRegistra] AS [FechaRegistra], 
+[XTUS_DatoGeneralDetalle].[UsuarioModifica] AS [UsuarioModifica], 
+[XTUS_DatoGeneralDetalle].[FechaModifica] AS [FechaModifica]
+FROM [FILASUR].[XTUS_DatoGeneralDetalle] AS [XTUS_DatoGeneralDetalle]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EXACTUSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="EXACTUSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="XTUS_AUDITORIA_AFFIDAVIT" EntityType="EXACTUSModel.XTUS_AUDITORIA_AFFIDAVIT" />
+          <EntitySet Name="XTUS_Rol" EntityType="EXACTUSModel.XTUS_Rol" />
+          <EntitySet Name="XTUS_USUARIO" EntityType="EXACTUSModel.XTUS_USUARIO" />
+          <EntitySet Name="XTUS_DatoGeneral" EntityType="EXACTUSModel.XTUS_DatoGeneral" />
+          <EntitySet Name="XTUS_DatoGeneralDetalle" EntityType="EXACTUSModel.XTUS_DatoGeneralDetalle" />
+        </EntityContainer>
+        <EntityType Name="XTUS_AUDITORIA_AFFIDAVIT">
+          <Key>
+            <PropertyRef Name="IDAFFIDAVIT" />
+          </Key>
+          <Property Name="IDAFFIDAVIT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CLIENTE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PEDIDO" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="USUARIO" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="REPORTE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="XTUS_Rol">
+          <Key>
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Name="IdRol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreRol" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UsuarioCreacion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EstadoRol" Type="Boolean" Nullable="false" />
+          <Property Name="EstadoEliminacion" Type="Boolean" Nullable="false" />
+          <Property Name="CodigoRol" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="XTUS_USUARIO">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreUsuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApPaternoUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApMaternoUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Usser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmailUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdRol" Type="Int32" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="EstadoUsuario" Type="Boolean" Nullable="false" />
+          <Property Name="EstadoEliminacion" Type="Boolean" Nullable="false" />
+          <Property Name="TelefonoUsuario" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="IdJefe" Type="Int32" />
+        </EntityType>
+        <EntityType Name="XTUS_DatoGeneral">
+          <Key>
+            <PropertyRef Name="DatoGeneralId" />
+          </Key>
+          <Property Name="DatoGeneralId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Dominio" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="PuedeCrecer" Type="Boolean" />
+          <Property Name="Habilitado" Type="Boolean" />
+          <Property Name="UsuarioRegistra" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FechaRegistra" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModifica" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModifica" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="XTUS_DatoGeneralDetalle">
+          <Key>
+            <PropertyRef Name="DatoGeneralDetalleId" />
+          </Key>
+          <Property Name="DatoGeneralDetalleId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DatoGeneralId" Type="Int32" />
+          <Property Name="ValorTabla" Type="Int32" />
+          <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ValorTexto1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ValorTexto2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ValorEntero" Type="Int32" />
+          <Property Name="ValorDecimal" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ValorFecha" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Editable" Type="Boolean" />
+          <Property Name="Habilitado" Type="Boolean" />
+          <Property Name="UsuarioRegistra" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FechaRegistra" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModifica" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModifica" Type="DateTime" Precision="3" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EXACTUSModelStoreContainer" CdmEntityContainer="EXACTUSEntities">
+          <EntitySetMapping Name="XTUS_AUDITORIA_AFFIDAVIT">
+            <EntityTypeMapping TypeName="EXACTUSModel.XTUS_AUDITORIA_AFFIDAVIT">
+              <MappingFragment StoreEntitySet="XTUS_AUDITORIA_AFFIDAVIT">
+                <ScalarProperty Name="REPORTE" ColumnName="REPORTE" />
+                <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="PEDIDO" ColumnName="PEDIDO" />
+                <ScalarProperty Name="CLIENTE" ColumnName="CLIENTE" />
+                <ScalarProperty Name="IDAFFIDAVIT" ColumnName="IDAFFIDAVIT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="XTUS_Rol">
+            <EntityTypeMapping TypeName="EXACTUSModel.XTUS_Rol">
+              <MappingFragment StoreEntitySet="XTUS_Rol">
+                <ScalarProperty Name="CodigoRol" ColumnName="CodigoRol" />
+                <ScalarProperty Name="EstadoEliminacion" ColumnName="EstadoEliminacion" />
+                <ScalarProperty Name="EstadoRol" ColumnName="EstadoRol" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="NombreRol" ColumnName="NombreRol" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="XTUS_USUARIO">
+            <EntityTypeMapping TypeName="EXACTUSModel.XTUS_USUARIO">
+              <MappingFragment StoreEntitySet="XTUS_USUARIO">
+                <ScalarProperty Name="IdJefe" ColumnName="IdJefe" />
+                <ScalarProperty Name="TelefonoUsuario" ColumnName="TelefonoUsuario" />
+                <ScalarProperty Name="EstadoEliminacion" ColumnName="EstadoEliminacion" />
+                <ScalarProperty Name="EstadoUsuario" ColumnName="EstadoUsuario" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="EmailUsuario" ColumnName="EmailUsuario" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Usser" ColumnName="Usser" />
+                <ScalarProperty Name="ApMaternoUsuario" ColumnName="ApMaternoUsuario" />
+                <ScalarProperty Name="ApPaternoUsuario" ColumnName="ApPaternoUsuario" />
+                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="XTUS_DatoGeneral">
+            <EntityTypeMapping TypeName="EXACTUSModel.XTUS_DatoGeneral">
+              <MappingFragment StoreEntitySet="XTUS_DatoGeneral">
+                <ScalarProperty Name="FechaModifica" ColumnName="FechaModifica" />
+                <ScalarProperty Name="UsuarioModifica" ColumnName="UsuarioModifica" />
+                <ScalarProperty Name="FechaRegistra" ColumnName="FechaRegistra" />
+                <ScalarProperty Name="UsuarioRegistra" ColumnName="UsuarioRegistra" />
+                <ScalarProperty Name="Habilitado" ColumnName="Habilitado" />
+                <ScalarProperty Name="PuedeCrecer" ColumnName="PuedeCrecer" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Dominio" ColumnName="Dominio" />
+                <ScalarProperty Name="DatoGeneralId" ColumnName="DatoGeneralId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="XTUS_DatoGeneralDetalle">
+            <EntityTypeMapping TypeName="EXACTUSModel.XTUS_DatoGeneralDetalle">
+              <MappingFragment StoreEntitySet="XTUS_DatoGeneralDetalle">
+                <ScalarProperty Name="FechaModifica" ColumnName="FechaModifica" />
+                <ScalarProperty Name="UsuarioModifica" ColumnName="UsuarioModifica" />
+                <ScalarProperty Name="FechaRegistra" ColumnName="FechaRegistra" />
+                <ScalarProperty Name="UsuarioRegistra" ColumnName="UsuarioRegistra" />
+                <ScalarProperty Name="Habilitado" ColumnName="Habilitado" />
+                <ScalarProperty Name="Editable" ColumnName="Editable" />
+                <ScalarProperty Name="ValorFecha" ColumnName="ValorFecha" />
+                <ScalarProperty Name="ValorDecimal" ColumnName="ValorDecimal" />
+                <ScalarProperty Name="ValorEntero" ColumnName="ValorEntero" />
+                <ScalarProperty Name="ValorTexto2" ColumnName="ValorTexto2" />
+                <ScalarProperty Name="ValorTexto1" ColumnName="ValorTexto1" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="ValorTabla" ColumnName="ValorTabla" />
+                <ScalarProperty Name="DatoGeneralId" ColumnName="DatoGeneralId" />
+                <ScalarProperty Name="DatoGeneralDetalleId" ColumnName="DatoGeneralDetalleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

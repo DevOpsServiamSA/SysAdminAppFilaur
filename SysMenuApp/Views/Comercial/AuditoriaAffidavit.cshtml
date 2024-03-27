@@ -1,0 +1,132 @@
+﻿
+<script src="~/Content/MenuApp/JavaScript/jquery.dataTables.min.js"></script>
+<script src="~/Content/MenuApp/JavaScript/dataTables.bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+@{
+    ViewBag.Title = "AuditoriaAffidavit";
+}
+
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Auditoría de Reportes Affidavit</h1>
+    </div>
+    <br />
+    <div class="form-row">
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>Fecha Inicio : </label>
+                <input type="date" id="fInicio" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>Fecha Fin : </label>
+                <input type="date" id="fFin" class="form-control" />
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <button type="button" id="btnBuscarAuditoria" class="btn btn-danger btn-lg px-3"><i class="fa fa-search" aria-hidden="true"></i> Buscar </button>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <div class="form-horizontal row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    @*<div class="scrollmenu">*@
+                    <div class="col-sm-12">
+                        <div id="div_tbListaAuditoria">
+                            <table id="tbListaAuditoria" class="table table-bordered table-dark">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Cliente</th>
+                                        <th>Nombre Cliente</th>
+                                        <th>Orden de Compra</th>
+                                        <th>Usuario</th>
+                                        <th>Fecha de Impresión</th>
+                                        <th>Descargar Reporte Affidavit</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bodyTbListaAuditoria"></tbody>
+                            </table>
+                        </div>
+                        <div id="div_tbListaAuditoria_pagination"></div>
+                    </div>
+                    @*</div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div id="Imprimir">
+               
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="imprimirPDF()">Imprimir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .linea {
+        border-bottom: 1px solid black;
+        height: 2px;
+        max-width: 200px;
+        padding: 0;
+        margin: 50px auto 0 auto;
+    }
+</style>
+
+<script src="~/Scripts/Pages/Reportes/AuditoriaAffidavit.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+<script>
+    function descargarPdf(data) {
+        document.getElementById("Imprimir").innerHTML = "";
+        var decrypted = CryptoJS.AES.decrypt(data, "MyPass");
+        document.getElementById("Imprimir").innerHTML = decrypted.toString(CryptoJS.enc.Utf8);
+        $('#exampleModal').modal('show');
+    }
+
+
+
+    function imprimirPDF() {
+        
+        const $elementoParaConvertir = document.getElementById("Imprimir"); 
+        html2pdf()
+            .set({
+                
+                margin: 1,
+                filename: 'affidavit.pdf',
+                image: {
+                    type: 'jpeg',
+                    quality: 0.98
+                },
+                html2canvas: {
+                    scale: 2, // A mayor escala, mejores gráficos, pero más peso
+                    letterRendering: true
+                },
+                jsPDF: {
+                    unit: "cm",
+                    format: "a3",
+                    orientation: "portrait" // landscape o portrait
+                    //orientation: 'p',
+                    //unit: 'in',
+                    //format: 612, 792
+                }
+            })
+            .from($elementoParaConvertir)
+            .save()
+            .catch(err => console.log(err));
+    }
+</script>

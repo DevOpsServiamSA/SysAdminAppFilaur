@@ -1,0 +1,178 @@
+﻿@*<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>*@
+@*<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap.min.js"></script>*@
+
+<script src="~/Content/MenuApp/JavaScript/jquery.dataTables.min.js"></script>
+<script src="~/Content/MenuApp/JavaScript/dataTables.bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+@{
+    ViewBag.Title = "Index";
+}
+@using Entidades
+@{
+    List<UsuariosCLS> listaUsuarios = (List<UsuariosCLS>)ViewBag.listaUsuarios;
+}
+
+
+<style>
+    .linea {
+        border-bottom: 1px solid black;
+        height: 2px;
+        max-width: 200px;
+        padding: 0;
+        margin: 50px auto 0 auto;
+      
+    }
+    div.affidavit {
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Reporte Affidavit</h1>
+    </div>
+    <div class="form-row">
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>Cliente : </label>
+                <select name="select" id="idCliente" class="js-states form-control" onchange="obtenerPedido(value)">
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>Orden : </label>
+                <select name="select" id="orden" class="js-states form-control" onchange="obtenerArticulo(value)">
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>Artículo : </label>
+                <select name="select" id="articulo" class="js-states form-control">
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>Descripción : </label>
+                <input type="text" id="descripcion" class="form-control" />
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+            <button type="button" class="btn btn-secondary" onclick="generarAffidavit()"> Generar </button>
+            <br />
+            <button style="margin-top:10px;"id="btnCrearPdf" class="btn btn-primary" onclick="GuardarAuditoria()"> Imprimir </button>
+        </div>
+        <div class="col-lg-2">
+            
+        </div>
+    </div>
+    <br>
+    
+    <div id="affidavit" style="display: none; margin-top: 20px;">
+        <div class="d-flex justify-content-around" id="affidavit" @*style="margin-left: 50px; margin-right: 50px;"*@>
+            <div class="p-2"><img style="width:80%;" src="~/Content/img/Filasur.png" alt="Filasur" /></div>
+            <div class="p-2"></div>
+            <div class="p-2">Av. Santuario N° 1119 <br />Urb. Zarate<br />Lima 36 Perú<br />Teléfono<br />(511)614-5800<br />Fax:Anexo1<br />Fax Ventas:Anexo 446</div>
+        </div>
+        <div class="d-flex justify-content-around" id="affidavit">
+            <div class="p-2"></div>
+            <div class="p-2"><h1 style="text-align:center;" class="h3 mb-0 text-gray-800"><u><b>Yarn or Thread <br />Manufacturer's Affidavit Of Origin</b></u></h1><br /></div>
+            <div class="p-2"></div>
+        </div>
+        <div class="d-flex justify-content-around" id="affidavit">
+            <div class="p-2"></div>
+            <div class="p-5">
+                <pre style="line-height: 2.428571; background-color: #FFFFFF; border: none; ">I,<span class="linea">           MAURICE ABUSADA SUMAR              </span>,<span class="linea">                GENERAL MANAGER                  .</span>
+of<span class="linea">          FILASUR S.A.            </span>, do hereby certify that the yarn or thread described below and
+sold or to be sold to <span class="linea">    <strong id="NombreCliente"></strong>     .</span>
+during the period from <span class="linea" id="fInicio">              </span>to<span class="linea" id="fFin">               </span>, was produced or
+formed by us as checked below:
+<span class="linea">     </span>  The yarn was wholly formed* in the United States.
+<span class="linea">  X   </span>  The yarn was wholly formed* in the following PETPA country: <span class="linea">        PERU                .</span>
+<span class="linea">     </span>  The yarn was not formed in the U.S. or PETPA and is a product of (country) <span class="linea">            .</span>
+<span class="linea">     </span>  The thread was formed in (name of country) <span class="linea">                                .</span>
+Yarn/ Thread/ or Description: <span class="linea">    <strong id="descripcionLinea"></strong>   .</span>
+</pre>
+            </div>
+            <div class="p-2"></div>
+        </div>
+        <div class="d-flex justify-content-around">
+            <table class="table table-bordered w-auto">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width: 8.33%">Net Kilos</th>
+                        <th scope="col" style="width: 8.33%">Issue Date</th>
+                        <th scope="col" style="width: 8.33%">Invoice No.</th>
+                        <th scope="col" style="width:  8.33%">Dispatch Bill No.</th>
+                        <th scope="col" style="width:  8.33%">Costumer Order Bill No. & Date</th>
+                    </tr>
+                </thead>
+                <tbody id="grillaAffidavit">
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-around" id="affidavit">
+            <p><b> Manufacturer</b></p>
+        </div>
+        <div class="d-flex justify-content-center" id="affidavit">
+            <div class="p-2">Signature:</div>
+            <div class="p-2"><img style="width:80%;" src="~/Content/img/firma.jpg" alt="Firma" /></div>
+            <div class="p-2"></div>
+        </div>
+        @*<div class="d-flex justify-content-center" id="affidavit">
+            <div class="p-2">Date:</div>
+            <div class="p-2" id="current_date"></div>
+            <div class="p-2"></div>
+        </div>*@
+        <div class="d-flex justify-content-center" id="affidavit">
+            <div class="p-2">Date:</div>
+            <div class="p-2" id="current_date">
+                <p></p>
+
+                <script>
+                    date = new Date();
+                    year = date.getFullYear();
+                    month = date.getMonth() + 1;
+                    day = date.getDate();
+                    var meses = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+                    document.getElementById("current_date").innerHTML = meses[date.getMonth()] + " " + day + "," + year;
+                </script>
+            </div>
+            <div class="p-2"></div>
+        </div>
+        <p style="text-align:center;"><b>(*):  Importer and Authorities would verify authenticity of this Affidavit in any moment.</b></p>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+<script type="text/javascript">
+
+    $(".js-states").select2({
+        placeholder: "Seleccione la opción",
+        allowClear: true
+    });
+
+    $("#articulo").select2({
+        placeholder: "Seleccione la opción",
+        allowClear: true
+    });
+</script>
+<script src="~/Scripts/Pages/Reportes/ReporteAffidavit.js"></script>
+
+
+

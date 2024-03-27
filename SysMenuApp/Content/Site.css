@@ -1,0 +1,20 @@
+﻿.bg-gradient-primary {
+    background-color: #3BAAE7 !important;
+    background-image: linear-gradient(180deg,#3BAAE7 10%,#EAEEF0 100%) !important;
+}
+.sidebar.toggled{
+    transition:all 300ms ease-in-out;
+}
+.sidebar{
+    transition:all 300ms ease-out;
+}
+.navbar-nav{
+    margin:0;
+}
+.btn-link {
+    color: #e74a3b;
+}
+
+    .btn-link:hover, .btn-link:focus {
+        color: #e74a3bba;
+    }

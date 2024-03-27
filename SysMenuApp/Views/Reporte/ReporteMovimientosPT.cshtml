@@ -1,0 +1,91 @@
+﻿@*<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>*@
+@*<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap.min.js"></script>*@
+
+<script src="~/Content/MenuApp/JavaScript/jquery.dataTables.min.js"></script>
+<script src="~/Content/MenuApp/JavaScript/dataTables.bootstrap.min.js"></script>
+
+@{
+    ViewBag.Title = "Index";
+}
+@using Entidades
+@{
+    List<UsuariosCLS> listaUsuarios = (List<UsuariosCLS>)ViewBag.listaUsuarios;
+}
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Reporte Movimientos Producto Terminado</h1>
+    </div>
+    <div class="form-row">
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>Fecha Inicio : </label>
+                <input type="date" id="fInicio" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>Fecha Fin : </label>
+                <input type="date" id="fFin" class="form-control" />
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+            <button type="button" id="btnBuscarMovimientoPT" class="btn btn-danger btn-lg px-3"><i class="fa fa-search" aria-hidden="true"></i> Buscar </button>
+        </div>
+        <div class="col-lg-2">
+            <button type="button" id="btnExportarMovimientoPT" class="btn btn-success btn-lg px-3"><i class="fa fa-file-excel" aria-hidden="true"></i> Exportar a Excel</button>
+        </div>
+    </div>
+    <br>
+    <div class="panel-body">
+        <div class="form-horizontal row">
+
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <div class="scrollmenu">
+                        <div class="col-sm-12">
+                            <div id="div_tbListaMovimientoPT" style="height: 100%;">
+                                <table id="tbListaMovimientoPT" class="table table-bordered table-hover" style="width: 100%;">
+
+                                    <thead>
+                                        <tr>
+                                            <th data-width="100px">Aplicación</th>
+                                            <th data-width="10px">Fecha</th>
+                                            <th data-width="10px">Consec.</th>
+                                            <th data-width="10px">Artículo</th>
+                                            <th data-width="40px">Cantidad</th>
+                                            <th data-width="40px">Unidad</th>
+                                            <th data-width="40px">Descripción</th>
+                                            <th data-width="40px">Atributo</th>
+                                            <th data-width="40px">Movimiento</th>
+                                            <th data-width="40px">Cta. Contable</th>
+                                            <th data-width="40px">Costo %</th>
+                                            <th data-width="40px">Cto. Costo</th>
+                                            <th data-width="40px">Proveedor</th>
+                                            <th data-width="40px">Referencia</th>
+                                            <th data-width="40px">Fac. Embarque</th>
+                                            <th data-width="40px">Artículo Cta.</th>
+                                            <th data-width="40px">Descripción</th>
+                                            <th data-width="40px">Línea Negocio</th>
+                                            <th data-width="40px">Descripción</th>
+                                            <th data-width="40px">Mat. Prima</th>
+                                            <th data-width="40px">Lote</th>
+                                            <th data-width="40px">Bodega</th>
+                                            <th data-width="40px">Color</th>
+                                            <th data-width="40px">Teñido</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="bodyTbListaMovimientoPT"></tbody>
+                                </table>
+                            </div>
+                            <div id="div_tbListaMovimientoPT_pagination" style="padding-top: 5px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="~/Scripts/Pages/Reportes/ReporteMovimientoPT.js"></script>
+

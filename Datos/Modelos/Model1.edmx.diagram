@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="65ca20f0bed04598a9a7e3f7e5752f8c" Name="Diagram1">
+        <EntityTypeShape EntityType="EXACTUSModel.XTUS_AUDITORIA_AFFIDAVIT" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="EXACTUSModel.XTUS_Rol" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="EXACTUSModel.XTUS_USUARIO" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="EXACTUSModel.XTUS_DatoGeneral" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="EXACTUSModel.XTUS_DatoGeneralDetalle" Width="1.5" PointX="6.75" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
